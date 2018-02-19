@@ -19,8 +19,13 @@ public class CountryRecyclerView extends RecyclerView.Adapter<CountryRecyclerVie
 
     ArrayList<Country> countries;
 
-    public CountryRecyclerView(ArrayList<Country> countries) {
+    public interface ListImageClick{
+        public void onListImageClick(String imageRes);
+    }
+        ListImageClick listener;
+    public CountryRecyclerView(ArrayList<Country> countries,ListImageClick listener) {
         this.countries = countries;
+        this.listener = listener;
 
     }
     public void swapArray(ArrayList<Country> countries)
@@ -45,6 +50,7 @@ public class CountryRecyclerView extends RecyclerView.Adapter<CountryRecyclerVie
         Glide.with(holder.ivFlag.getContext())
                 .load(c.getFlag())
                 .into(holder.ivFlag);
+        holder.imageRes = c.getFlag();
     }
 
     @Override
@@ -56,18 +62,25 @@ public class CountryRecyclerView extends RecyclerView.Adapter<CountryRecyclerVie
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView tvRank;
         TextView tvName;
         TextView tvPopulation;
         ImageView ivFlag;
+        String imageRes = null;
         public ViewHolder(View itemView) {
             super(itemView);
             tvRank = itemView.findViewById(R.id.tvRank);
             tvName = itemView.findViewById(R.id.tvName);
             tvPopulation = itemView.findViewById(R.id.tvPopulation);
             ivFlag = itemView.findViewById(R.id.ivFlag);
+            ivFlag.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.onListImageClick(imageRes);
         }
     }
 }

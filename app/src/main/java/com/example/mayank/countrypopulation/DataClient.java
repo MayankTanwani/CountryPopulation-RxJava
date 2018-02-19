@@ -1,13 +1,9 @@
 package com.example.mayank.countrypopulation;
 
-import android.support.annotation.NonNull;
-
-import com.google.gson.Gson;
-
+import io.reactivex.Observable;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
 
 /**
  * Created by mayank on 2/19/18.
@@ -21,7 +17,7 @@ public class DataClient {
     {
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         dataApi = retrofit.create(DataApi.class);
 

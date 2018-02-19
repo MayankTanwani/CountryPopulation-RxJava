@@ -1,7 +1,7 @@
 package com.example.mayank.countrypopulation;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
-import rx.Observable;
 
 /**
  * Created by mayank on 2/19/18.
